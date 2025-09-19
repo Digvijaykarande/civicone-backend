@@ -17,8 +17,8 @@ app.use(express.json());
 
 
 const allowedOrigins = [
-  "http://localhost:5173",     // local dev frontend
-  "https://your-frontend-app.onrender.com" // deployed frontend
+  "http://localhost:5173",     
+  "https://civicone.netlify.app/" 
 ];
 
 app.use(cors({
