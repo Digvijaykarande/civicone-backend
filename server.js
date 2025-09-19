@@ -1,12 +1,12 @@
 import express from "express";
 import dotenv from "dotenv";
-import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
 import connectDB from "./config/db.js";
 import reportRoutes from "./routes/reportRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import authRoutes from "./routes/authRoutes.js"; // <-- import
+import cors from "cors";
 
 dotenv.config();
 connectDB();
@@ -15,6 +15,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+
+const allowedOrigins = [
+  "http://localhost:5173",     // local dev frontend
+  "https://your-frontend-app.onrender.com" // deployed frontend
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 // Routes
 app.use("/api/auth", authRoutes);      // <-- register auth routes
 app.use("/api/users", userRoutes);
